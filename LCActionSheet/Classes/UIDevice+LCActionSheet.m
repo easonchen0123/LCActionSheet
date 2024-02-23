@@ -29,10 +29,12 @@
 @implementation UIDevice (LCActionSheet)
 
 - (BOOL)lc_isX {
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    CGFloat height = MAX(screenSize.width, screenSize.height);
-    BOOL isX = height == 812.0 || height == 896.0;
-    return isX;
+    BOOL isFullIphone = NO;
+    UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+    if (mainWindow.safeAreaInsets.bottom > 0.0) {
+        isFullIphone = YES;
+    }
+    return isFullIphone;
 }
 
 @end
