@@ -820,7 +820,17 @@
         if (strongSelf.didPresentHandler) {
             strongSelf.didPresentHandler(strongSelf);
         }
+        
+        // 监听APP回到后台
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(applicationWillResignActive:)
+                                                     name:UIApplicationWillResignActiveNotification
+                                                   object:nil];
     }];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    [self hideWithButtonIndex:self.cancelButtonIndex];
 }
 
 - (void)hideWithButtonIndex:(NSInteger)buttonIndex {
